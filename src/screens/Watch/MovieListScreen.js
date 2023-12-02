@@ -37,16 +37,10 @@ const MovieListScreen = ({navigation}) => {
 
   const toggleSearch = () => {
     setSearchVisible(!searchVisible);
-    if (!searchVisible) {
-      setSearchText('');
-    }
+    setSearchText('');
+    setSearchResults([])
   };
 
-  const handleDoneEditing = () => {
-    if (searchVisible) {
-      setSearchVisible(false);
-    }
-  };
 
   const handleDonePress = () => {
     Keyboard.dismiss();
@@ -83,7 +77,6 @@ console.log('searchResults',searchResults)
      ? <CommonHeader showBackButton title={`${searchResults?.length} ${contant.resultFound}`} onBackPress={()=>{setResultHeader(!resultHeader)}}/> : <SearchableHeader
         value={searchText}
         onChangeText={handleInputChange}
-        onBlur={handleDoneEditing}
         toggleSearch={toggleSearch}
         searchVisible={searchVisible}
         onSubmitEditing={handleDonePress}
@@ -183,9 +176,7 @@ const styles = StyleSheet.create({
     paddingBottom:hp(1.2)
 
 },
-
-  //-- bottom flatlist
-  bannerContainer: {
+bannerContainer: {
     height: hp(22),
     width: hp(41),
     borderRadius: 15,
