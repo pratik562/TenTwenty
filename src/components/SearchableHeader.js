@@ -3,31 +3,7 @@ import { View, Text, TouchableOpacity, TextInput, StyleSheet, Image } from 'reac
 import { hp } from '../utils/scalling';
 import { colors, contant, fonts, icons } from '../constants';
 
-const SearchableHeader = ({ onSearch }) => {
-  const [searchVisible, setSearchVisible] = useState(false);
-  const [searchText, setSearchText] = useState('');
-
-  const toggleSearch = () => {
-    setSearchVisible(!searchVisible);
-    if (!searchVisible) {
-      setSearchText('');
-    }
-  };
-
-  const handleSearch = () => {
-    if (searchText.trim() !== '') {
-      onSearch(searchText);
-    } else {
-     
-    }
-  };
-
-  const handleDoneEditing = () => {
-    if (searchVisible) {
-      setSearchVisible(false); 
-    }
-  };
-
+const SearchableHeader = ({ value,onChangeText,onBlur,toggleSearch,searchVisible,onSubmitEditing }) => {
   return (
     <View style={styles.header}>
       {searchVisible ? (
@@ -35,11 +11,12 @@ const SearchableHeader = ({ onSearch }) => {
           <Image source={icons.search} style={styles.searchIcon} />
           <TextInput
             style={styles.searchInput}
-            value={searchText}
-            onChangeText={setSearchText}
+            value={value}
+            onChangeText={onChangeText}
             placeholder={contant.Tvshow}
             autoFocus={true}
-            onBlur={handleDoneEditing}
+            onBlur={onBlur}
+            onSubmitEditing={onSubmitEditing}
           />
           <TouchableOpacity onPress={toggleSearch}>
             <Image source={icons.close} style={[styles.searchIcon,{height:hp(3),width:hp(3)}]} />
