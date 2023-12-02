@@ -1,1 +1,3 @@
-export default  contant = {}
+export default  contant = {
+    Tvshow : 'TV shows, movies and more'
+}

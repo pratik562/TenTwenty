@@ -3,4 +3,7 @@ export default  icons = {
     list: require('../../assets/icons/list.png'),
     media: require('../../assets/icons/media.png'),
     play: require('../../assets/icons/play.png'),
+    back: require('../../assets/icons/back.png'),
+    close: require('../../assets/icons/close.png'),
+    search: require('../../assets/icons/search.png'),
 }

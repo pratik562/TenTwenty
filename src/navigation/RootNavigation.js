@@ -57,11 +57,13 @@ const RootNavigation = () => {
             return iconComponent;
           },
           headerShown:false,
+          
           tabBarStyle: styles.tabbarStyle,
           tabBarLabelStyle:{
             fontFamily:fonts.poppinsSemiBold, 
             fontSize:hp(1.1)
-          }
+          },
+
         })
     
     }
