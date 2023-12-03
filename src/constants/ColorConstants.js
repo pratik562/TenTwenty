@@ -6,5 +6,7 @@ export default colors = {
     dullGray:'#F2F2F6',
     fontColor:'#202C43',
     borderColor:'#EFEFEF',
-    dullGrayfont:'#DBDBDF'
+    dullGrayfont:'#DBDBDF',
+    lightBlue:'#61C3F2'
+
 }

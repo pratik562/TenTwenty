@@ -7,4 +7,5 @@ export default  icons = {
     close: require('../../assets/icons/close.png'),
     search: require('../../assets/icons/search.png'),
     threedot: require('../../assets/icons/threedot.png'),
+    playButton: require('../../assets/icons/playButton.png'),
 }

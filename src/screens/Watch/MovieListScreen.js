@@ -13,7 +13,7 @@ import {
 import {colors, contant, fonts, icons} from '../../constants';
 import {fetchUpcomingMovies} from '../../helper/apiRequest';
 import {hp, wp} from '../../utils/scalling';
-import { CommonHeader, SearchableHeader } from '../../components';
+import {CommonHeader, SearchableHeader} from '../../components';
 
 const MovieListScreen = ({navigation}) => {
   const [upcomingMovies, setUpcomingMovies] = useState([]);
@@ -38,20 +38,18 @@ const MovieListScreen = ({navigation}) => {
   const toggleSearch = () => {
     setSearchVisible(!searchVisible);
     setSearchText('');
-    setSearchResults([])
+    setSearchResults([]);
   };
-
 
   const handleDonePress = () => {
     Keyboard.dismiss();
-    setResultHeader(!resultHeader)
+    setResultHeader(!resultHeader);
   };
-
 
   const handleSearch = async searchText => {
     if (!searchText.trim()) {
       setSearchResults([]);
-      setSearchVisible(false); 
+      setSearchVisible(false);
       return;
     }
 
@@ -70,65 +68,80 @@ const MovieListScreen = ({navigation}) => {
     handleSearch(text);
   };
 
-console.log('searchResults',searchResults)
+  console.log('searchResults', searchResults);
   return (
     <SafeAreaView style={styles.container}>
-     {resultHeader 
-     ? <CommonHeader showBackButton title={`${searchResults?.length} ${contant.resultFound}`} onBackPress={()=>{setResultHeader(!resultHeader)}}/> : <SearchableHeader
-        value={searchText}
-        onChangeText={handleInputChange}
-        toggleSearch={toggleSearch}
-        searchVisible={searchVisible}
-        onSubmitEditing={handleDonePress}
-      />
-      }
+      {resultHeader ? (
+        <CommonHeader
+          showBackButton
+          title={`${searchResults?.length} ${contant.resultFound}`}
+          headerContainer={{borderBottomWidth:1}}
+          onBackPress={() => {
+            setResultHeader(!resultHeader);
+          }}
+        />
+      ) : (
+        <SearchableHeader
+          value={searchText}
+          onChangeText={handleInputChange}
+          toggleSearch={toggleSearch}
+          searchVisible={searchVisible}
+          onSubmitEditing={handleDonePress}
+        />
+      )}
 
       <View style={{flex: 1, alignItems: 'center'}}>
-        {searchResults?.length != 0  ? (
-        <View>
-            {searchResults?.length ? 
-             <Text style={styles.topResult}>{contant.topResult}</Text>:<></>
-            }
-          <FlatList
-            bounces={false}
-            showsVerticalScrollIndicator={false}
-            data={searchResults}
-            style={{ flex:1,}}
-            renderItem={({item}) => {
-              return (
-                <TouchableOpacity
-                  style={styles.searchResultContainer}
-                  onPress={() => {
-                    navigation.navigate('MovieDetail', { movie: item })
-                  }}>
-                  <Image
-                    source={{
-                      uri: `https://image.tmdb.org/t/p/w500/${item.poster_path}`,
-                    }}
-                    style={styles.bannerImage1}
-                  />
-                  <View style={styles.searchResultText}>
-                    <Text numberOfLines={1}
-                      style={[
-                        styles.bannerMovieName,
-                        {
-                          color: colors.fontColor,
-                          fontSize: hp(1.6),
-                          marginHorizontal: hp(1),
-                          margin: 0,
-                        },
-                      ]}>
-                      {item.title}
-                    </Text>
-                    <Text style={styles.category}>crime</Text>
-                  </View>
-                  <Image source={icons.threedot} style={styles.threedotIcon} />
-                </TouchableOpacity>
-              );
-            }}
-            keyExtractor={item => item.id.toString()}
-          />
-        </View>
+        {searchResults?.length != 0 ? (
+          <View>
+            {searchResults?.length ? (
+              <Text style={styles.topResult}>{contant.topResult}</Text>
+            ) : (
+              <></>
+            )}
+            <FlatList
+              bounces={false}
+              showsVerticalScrollIndicator={false}
+              data={searchResults}
+              style={{flex: 1}}
+              renderItem={({item}) => {
+                return (
+                  <TouchableOpacity
+                    style={styles.searchResultContainer}
+                    onPress={() => {
+                      navigation.navigate('MovieDetail', {movie: item});
+                    }}>
+                    <Image
+                      source={{
+                        uri: `https://image.tmdb.org/t/p/w500/${item.poster_path}`,
+                      }}
+                      style={styles.bannerImage1}
+                    />
+                    <View style={styles.searchResultText}>
+                      <Text
+                        numberOfLines={1}
+                        style={[
+                          styles.bannerMovieName,
+                          {
+                            color: colors.fontColor,
+                            fontSize: hp(1.6),
+                            marginHorizontal: hp(1),
+                            margin: 0,
+                          },
+                        ]}>
+                        {item.title}
+                      </Text>
+                      <Text style={styles.category}>crime</Text>
+                    </View>
+                    <Image
+                      source={icons.threedot}
+                      style={styles.threedotIcon}
+                    />
+                  </TouchableOpacity>
+                );
+              }}
+              keyExtractor={item => item.id.toString()}
+            />
+          </View>
         ) : (
           <FlatList
             showsVerticalScrollIndicator={false}
@@ -136,7 +149,7 @@ console.log('searchResults',searchResults)
             renderItem={({item}) => (
               <TouchableOpacity
                 onPress={() => {
-                    navigation.navigate('MovieDetail', { movie: item })
+                  navigation.navigate('MovieDetail', {movie: item});
                 }}>
                 <View style={styles.bannerContainer}>
                   <Image
@@ -147,7 +160,7 @@ console.log('searchResults',searchResults)
                   />
                   <View style={styles.shadowOverlay} />
                   <View style={styles.bannerTextContainer}>
-                    <Text  style={styles.bannerMovieName}>{item.title}</Text>
+                    <Text style={styles.bannerMovieName}>{item.title}</Text>
                   </View>
                 </View>
               </TouchableOpacity>
@@ -167,16 +180,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.dullwhite,
   },
-  topResult:{
-    fontFamily:fonts.poppinsRegular,
-    fontSize:hp(1.4),
-    margin:hp(1.2),
-    borderBottomWidth:1,
-    borderColor:"rgba(0, 0, 0, 0.11)",
-    paddingBottom:hp(1.2)
-
-},
-bannerContainer: {
+  topResult: {
+    fontFamily: fonts.poppinsRegular,
+    fontSize: hp(1.4),
+    margin: hp(1.2),
+    borderBottomWidth: 1,
+    borderColor: 'rgba(0, 0, 0, 0.11)',
+    paddingBottom: hp(1.2),
+  },
+  bannerContainer: {
     height: hp(22),
     width: hp(41),
     borderRadius: 15,
@@ -199,7 +211,7 @@ bannerContainer: {
     left: 0,
     right: 0,
     height: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.6)', 
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
   },
@@ -235,19 +247,17 @@ bannerContainer: {
     marginHorizontal: hp(2),
     marginBottom: hp(1),
     padding: hp(1),
-    justifyContent:'space-between',
-    width:wp(90)
-    
+    justifyContent: 'space-between',
+    width: wp(90),
   },
   searchResultText: {
     marginHorizontal: hp(1),
-    flex:1,
-    
+    flex: 1,
   },
   bannerImage1: {
     height: hp(12),
     width: hp(16),
-    resizeMode:'cover',
+    resizeMode: 'cover',
     borderRadius: hp(1.2),
   },
 });
