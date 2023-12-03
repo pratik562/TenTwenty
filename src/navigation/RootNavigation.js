@@ -12,6 +12,8 @@ import {colors, fonts} from '../constants';
 import {hp} from '../utils/scalling';
 import MovieDetailScreen from '../screens/Watch/MovieDetailsScreen';
 import { TabData } from '../helper/dummyData';
+import BookingScreen from '../screens/Watch/BookingScreen';
+import SelectSeatScreen from '../screens/Watch/SelectSeatScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -72,6 +74,8 @@ const MovieListStack = () => (
   <Stack.Navigator screenOptions={{headerShown:false}}>
     <Stack.Screen name="Watch" component={MovieListScreen} />
     <Stack.Screen name="MovieDetail" component={MovieDetailScreen} options={{ tabBarVisible: false }} />
+    <Stack.Screen name="Booking" component={BookingScreen} options={{ tabBarVisible: false }} />
+    <Stack.Screen name="SelectSeat" component={SelectSeatScreen} options={{ tabBarVisible: false }} />
   </Stack.Navigator>
 );
 

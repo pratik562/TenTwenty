@@ -7,6 +7,8 @@ export default colors = {
     fontColor:'#202C43',
     borderColor:'#EFEFEF',
     dullGrayfont:'#DBDBDF',
-    lightBlue:'#61C3F2'
+    lightBlue:'#61C3F2',
+    gray:'#8F8F8F',
+    transparntGray:'rgba(166, 166, 166, 0.10)'
 
 }

@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: hp(2),
+   
   },
   PrimaryTxt: {
     fontSize: hp(2.0),
@@ -90,6 +91,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginVertical: hp(1.1),
     paddingHorizontal: hp(2),
+     // Shadow properties for iOS
+     shadowColor: colors.black,
+     shadowOffset: { width: 0, height: 2 },
+     shadowOpacity: 0.3,
+     shadowRadius: 2,
+     // Elevation for Android
+     elevation: 2,
   },
   SecondaryTxt: {
     fontSize: hp(2.0),

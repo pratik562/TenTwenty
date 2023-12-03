@@ -21,3 +21,23 @@ export const fetchMovieDetailsById = async (movieId) => {
     throw error;
   }
 };
+
+export const fetchMovieVideoId = async (movieId) => {
+  try {
+    const movieDetails = await callAPI(`/${movieId}/videos`, {});
+    return movieDetails;
+  } catch (error) {
+    console.error(`Error fetching movie details for ID ${movieId}:`, error);
+    throw error;
+  }
+};
+
+export const fetchMovieImagesById = async (movieId) => {
+  try {
+    const imageDetails = await callAPI(`/${movieId}`, {});
+    return imageDetails;
+  } catch (error) {
+    console.error(`Error fetching movie details for ID ${movieId}:`, error);
+    throw error;
+  }
+};

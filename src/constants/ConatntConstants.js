@@ -5,5 +5,11 @@ export default  contant = {
     watch:'Watch',
     getTickets:'Get Tickets',
     WatchTrailer:'Watch Trailer',
-    realeseDate:"In theaters "
+    realeseDate:"In theaters ",
+    genres:'Genres',
+    Overview:'Overview',
+    date:'Date',
+    SelectSeats:'Select Seats',
+    Proceedtopay:'Proceed to pay',
+    TotalPrice:'Total Price'
 }
