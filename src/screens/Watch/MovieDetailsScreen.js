@@ -14,6 +14,9 @@ import {Buttons, CommonHeader} from '../../components';
 import {colors, contant, fonts, icons} from '../../constants';
 import {hp, wp} from '../../utils/scalling';
 import {formatDate} from '../../utils/globalFunctions';
+import { YouTubeStandaloneAndroid, YouTubeStandaloneIOS } from 'react-native-youtube';
+
+
 import {
   fetchMovieDetailsById,
   fetchMovieVideoId,
@@ -22,7 +25,6 @@ import {
 const MovieDetailsScreen = ({route, navigation}) => {
   const movieDetails = route.params?.movie;
 
-  const [showVideo, setShowVideo] = useState(false);
   const [movieData, setMovieData] = useState([]);
   const [movieTrailler, setMovieTrailer] = useState([]);
 
@@ -33,22 +35,15 @@ const MovieDetailsScreen = ({route, navigation}) => {
   const moviesOverView = async () => {
     const movieDetail = await fetchMovieDetailsById(movieDetails?.id);
     const movieTrailers = await fetchMovieVideoId(movieDetails?.id);
+
+    console.log('movieDetail',movieDetail)
     setMovieTrailer(movieTrailers);
     setMovieData(movieDetail);
   };
 
-  const banner = `https://image.tmdb.org/t/p/w500/${movieDetails?.poster_path}`;
+const banner = `https://image.tmdb.org/t/p/w500/${movieDetails?.poster_path}`;
 
-
-  const playTrailer = () => {
-    setShowVideo(true);
-  };
-
-  const closeVideo = () => {
-    setShowVideo(false);
-  };
-
-  const color = ['#E26CA5', '#15D2BC', '#CD9D0F', '#827D88', '#564CA3', '#61C3F2'];
+const color = ['#E26CA5', '#15D2BC', '#CD9D0F', '#827D88', '#564CA3', '#61C3F2'];
 
 const getRandomColor = () => {
   return color[Math.floor(Math.random() * color.length)];
@@ -62,6 +57,24 @@ const getRandomColor = () => {
     )
   }
 
+  const playVideo = async (videoId) => {
+    if (Platform.OS === 'android') {
+      await YouTubeStandaloneAndroid.playVideo({
+        apiKey: 'AIzaSyD5x8XK8XP4UaJxRVAb3W7x8YDYY7SyWfM',
+        videoId: videoId,
+        autoplay: true,
+        startTime: 0,
+      })
+        .then(() => console.log('Standalone Player Exited'))
+        .catch((errorMessage) => console.error(errorMessage));
+    } else if (Platform.OS === 'ios') {
+      await YouTubeStandaloneIOS.playVideo(videoId)
+        .then((message) => console.log(message))
+        .catch((errorMessage) => console.error(errorMessage));
+    }
+  };
+
+  console.log('movieTrailler:::',movieTrailler)
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -88,7 +101,6 @@ const getRandomColor = () => {
             {contant.realeseDate}
             {formatDate(movieDetails?.release_date)}
           </Text>
-
           <Buttons
             type={'secondary'}
             secondaryTxt={contant.getTickets}
@@ -97,7 +109,7 @@ const getRandomColor = () => {
           <Buttons
             type={'primary'}
             primaryTxt={contant.WatchTrailer}
-            onPressPrimarybutton={playTrailer}>
+            onPressPrimarybutton={()=>playVideo(movieTrailler?.results?.[0]?.key)}>
             <Image source={icons.playButton} style={styles.playButtonStyle} />
           </Buttons>
         </View>
@@ -116,7 +128,6 @@ const getRandomColor = () => {
         <View style={styles.overView}>
           <Text style={styles.Genres}> {contant?.Overview}</Text>
           <Text style={styles.OverViewTxt}> {movieData?.overview}</Text>
-         
         </View>
       </ScrollView>
     </View>
