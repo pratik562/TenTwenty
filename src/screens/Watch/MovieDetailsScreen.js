@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -9,13 +9,16 @@ import {
   TouchableOpacity,
   FlatList,
   ScrollView,
+  Button,
+  Alert,
+  Modal,
 } from 'react-native';
 import {Buttons, CommonHeader} from '../../components';
 import {colors, contant, fonts, icons} from '../../constants';
 import {hp, wp} from '../../utils/scalling';
 import {formatDate} from '../../utils/globalFunctions';
 import { YouTubeStandaloneAndroid, YouTubeStandaloneIOS } from 'react-native-youtube';
-
+import YoutubePlayer from "react-native-youtube-iframe";
 
 import {
   fetchMovieDetailsById,
@@ -27,6 +30,8 @@ const MovieDetailsScreen = ({route, navigation}) => {
 
   const [movieData, setMovieData] = useState([]);
   const [movieTrailler, setMovieTrailer] = useState([]);
+  const [showVideoModal, setShowVideoModal] = useState(false);
+  const [playing, setPlaying] = useState(false); 
 
   useEffect(() => {
     moviesOverView();
@@ -57,24 +62,16 @@ const getRandomColor = () => {
     )
   }
 
-  const playVideo = async (videoId) => {
-    if (Platform.OS === 'android') {
-      await YouTubeStandaloneAndroid.playVideo({
-        apiKey: 'AIzaSyD5x8XK8XP4UaJxRVAb3W7x8YDYY7SyWfM',
-        videoId: videoId,
-        autoplay: true,
-        startTime: 0,
-      })
-        .then(() => console.log('Standalone Player Exited'))
-        .catch((errorMessage) => console.error(errorMessage));
-    } else if (Platform.OS === 'ios') {
-      await YouTubeStandaloneIOS.playVideo(videoId)
-        .then((message) => console.log(message))
-        .catch((errorMessage) => console.error(errorMessage));
+
+
+  const onStateChange = (state) => {
+    if (state === 'ended') {
+      setPlaying(false);
+      setShowVideoModal(false);
+      Alert.alert('Video has finished playing!');
     }
   };
 
-  console.log('movieTrailler:::',movieTrailler)
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -91,7 +88,7 @@ const getRandomColor = () => {
             titleContainer={{alignItems:'flex-start'}}
           />
         </View>
-        <View
+          <View
           style={{
             alignSelf: 'center',
             marginTop: Platform.OS == 'ios' ? hp(22) : hp(25),
@@ -109,7 +106,7 @@ const getRandomColor = () => {
           <Buttons
             type={'primary'}
             primaryTxt={contant.WatchTrailer}
-            onPressPrimarybutton={()=>playVideo(movieTrailler?.results?.[0]?.key)}>
+            onPressPrimarybutton={()=>setShowVideoModal(true)}>
             <Image source={icons.playButton} style={styles.playButtonStyle} />
           </Buttons>
         </View>
@@ -130,6 +127,31 @@ const getRandomColor = () => {
           <Text style={styles.OverViewTxt}> {movieData?.overview}</Text>
         </View>
       </ScrollView>
+      <Modal
+          visible={showVideoModal}
+          transparent={true}
+          animationType="slide"
+        >
+          <View style={styles.modalContainer}>
+            <TouchableOpacity
+              style={styles.closeButton}
+              onPress={() => {
+                setShowVideoModal(false);
+                setPlaying(false); // Reset playing state when closing the modal
+              }}
+            >
+              <Text style={styles.closeButtonText}>Close</Text>
+            </TouchableOpacity>
+            <View style={styles.videoContainer}>
+              <YoutubePlayer
+                height={300}
+                play={playing}
+                videoId={movieTrailler?.results?.[0]?.key}
+                onChangeState={onStateChange}
+              />
+            </View>
+          </View>
+        </Modal>
     </View>
   );
 };
@@ -200,5 +222,28 @@ const styles = StyleSheet.create({
     lineHeight:hp(2),
     textAlign:'justify',
     margin:hp(1)
+  },
+  modalContainer: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)', // Adjust opacity as needed
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  closeButton: {
+    position: 'absolute',
+    top: hp(5),
+    right: wp(5),
+    padding: hp(1),
+    backgroundColor: colors.red, // Adjust this color to your preference
+    borderRadius: 5,
+  },
+  closeButtonText: {
+    color: colors.white,
+    fontSize: hp(1.7),
+    fontFamily: fonts.poppinsMedium,
+  },
+  videoContainer:{
+    width:'100%'
+
   }
 });
