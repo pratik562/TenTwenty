@@ -153,7 +153,7 @@ const BookingScreen = ({route, navigation}) => {
           contentContainerStyle={styles.hallList}
         />
       </View>
-      <Buttons type={'secondary'} secondaryTxt={contant.SelectSeats}  onPressSecondarybutton={handleSelectSeats}/>
+      <Buttons SecondaryViewStyle={{marginVertical:hp(2.5)}} type={'secondary'} secondaryTxt={contant.SelectSeats}  onPressSecondarybutton={handleSelectSeats}/>
     </View>
   );
 };

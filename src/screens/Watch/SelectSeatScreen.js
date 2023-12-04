@@ -82,8 +82,8 @@ const SelectSeatScreen = ({navigation, route}) => {
           headerContainer={{borderBottomWidth: 1}}
         />
       </View>
-
       <ScrollView
+      style={{marginBottom:hp(7),backgroundColor:'red'}}
         contentContainerStyle={styles.imageContainer}
         maximumZoomScale={4}
         minimumZoomScale={1}
@@ -121,7 +121,7 @@ const SelectSeatScreen = ({navigation, route}) => {
         <Text style={styles.itemText}>3 row</Text>
         <Image source={icons.close} style={{height: hp(2), width: hp(2)}} />
       </TouchableOpacity>
-      <View style={{flexDirection:'row'}}>
+      <View style={{flexDirection:'row',backgroundColor:colors.white,marginVertical:hp(2.5)}}>
         <TouchableOpacity style={styles.totalPrice}>
             <Text style={styles.itemText}>{contant.TotalPrice}</Text>
             <Text  style={{color:colors.fontColor}}>{ bookingDetails?.selectedHall?.price}</Text>
@@ -136,6 +136,7 @@ const SelectSeatScreen = ({navigation, route}) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
+    
   },
   imageContainer: {
     alignItems: 'center',
