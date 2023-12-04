@@ -12,6 +12,7 @@ import {
   Button,
   Alert,
   Modal,
+  StatusBar,
 } from 'react-native';
 import {Buttons, CommonHeader} from '../../components';
 import {colors, contant, fonts, icons} from '../../constants';
@@ -74,6 +75,7 @@ const getRandomColor = () => {
 
   return (
     <View style={styles.container}>
+     {Platform.OS == 'ios' && <StatusBar barStyle={'light-content'}/>}
       <ImageBackground
         source={{uri: banner}}
         style={styles.banner}
@@ -188,6 +190,7 @@ const styles = StyleSheet.create({
   Genres: {
     fontFamily: fonts.poppinsMedium,
     fontSize: hp(1.9),
+    color:colors.fontColor
   },
   GenresView: {
     marginHorizontal: hp(4.9),

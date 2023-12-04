@@ -14,6 +14,7 @@ const SearchableHeader = ({ value,onChangeText,onBlur,toggleSearch,searchVisible
             value={value}
             onChangeText={onChangeText}
             placeholder={contant.Tvshow}
+            placeholderTextColor={colors.gray}
             autoFocus={true}
             onBlur={onBlur}
             onSubmitEditing={onSubmitEditing}
@@ -65,6 +66,7 @@ const styles = StyleSheet.create({
     fontFamily:fonts.poppinsRegular,
     borderColor: colors.borderColor,
     borderWidth: 0.5,
+    color:colors.fontColor
   },
   searchIcon: {
     height: hp(2.4),
@@ -76,7 +78,8 @@ const styles = StyleSheet.create({
   },
   leftIcontest:{
     fontSize:hp(1.8),
-    fontFamily:fonts.poppinsMedium
+    fontFamily:fonts.poppinsMedium,
+    color:colors.fontColor
   },
   rightIcon: {
     marginLeft: 'auto',

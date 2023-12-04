@@ -121,7 +121,7 @@ const SelectSeatScreen = ({navigation, route}) => {
         <Text style={styles.itemText}>3 row</Text>
         <Image source={icons.close} style={{height: hp(2), width: hp(2)}} />
       </TouchableOpacity>
-      <View style={{flexDirection:'row',marginVertical:hp(2)}}>
+      <View style={{flexDirection:'row'}}>
         <TouchableOpacity style={styles.totalPrice}>
             <Text style={styles.itemText}>{contant.TotalPrice}</Text>
             <Text  style={{color:colors.fontColor}}>{ bookingDetails?.selectedHall?.price}</Text>
@@ -174,6 +174,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
+    marginLeft:Platform.OS == 'android' ? hp(-4) : hp(0)
   },
   zoomicons: {
     height: hp(3.5),

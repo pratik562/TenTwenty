@@ -175,6 +175,7 @@ const styles = StyleSheet.create({
   dateText: {
     fontFamily: fonts.poppinsRegular,
     fontSize: hp(1.9),
+    color:colors.fontColor
   },
   dateView: {
     marginHorizontal: hp(4.9),
@@ -186,7 +187,8 @@ const styles = StyleSheet.create({
   titleContainerStyle: {
     alignItems: 'center',
     justifyContent: 'center',
-    flex:1
+    flex:1,
+    marginLeft:Platform.OS == 'android' ? hp(-4) : hp(0)
   },
   //=====
   hallList: {
